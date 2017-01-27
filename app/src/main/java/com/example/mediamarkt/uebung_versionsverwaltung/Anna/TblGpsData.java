@@ -19,12 +19,9 @@ public class TblGpsData {
                     GpsDataId + " INTEGER PRIMARY KEY, "+
                     Longitude + " DOUBLE NOT NULL, "+
                     Latitude  + " DOUBLE NOT NULL, "+
-                    Date      + " TIMESTAMP NOT NULL"+
+                    Date      + " VARCHAR2 NOT NULL"+
             ")";
-    public static final String STMT_INSERT=
-            "INSERT INTO "+TABLE_NAME+
-                    "( "+GpsDataId+", "+Longitude+", "+Latitude+", SYSDATE) "+
-                    "VAlUES (?,?,?)";
+    public static final String STMT_INSERT="INSERT INTO "+TABLE_NAME+" VALUES (?,?,?, ?)";
 
 
 

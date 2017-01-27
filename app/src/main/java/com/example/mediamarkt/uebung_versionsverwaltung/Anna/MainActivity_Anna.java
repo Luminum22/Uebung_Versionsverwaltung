@@ -3,6 +3,7 @@ package com.example.mediamarkt.uebung_versionsverwaltung.Anna;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.example.mediamarkt.uebung_versionsverwaltung.Kathrin.MainActivity_Kathrin;
@@ -45,6 +47,7 @@ private static LocationManager locationManager=null;
             return;
             }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,5,this);
+
     }
 
     @Override
@@ -77,6 +80,7 @@ private static LocationManager locationManager=null;
         double latitude=location.getLatitude();
         Date date=new Date();
 
+
         textViewLongitude.setText("Longitude:"+longitude);
         textViewLatitude.setText("Latitude:"+latitude);
         textViewDate.setText(date.toString());
@@ -87,7 +91,16 @@ private static LocationManager locationManager=null;
     private void saveIntoDataBase(double longitude, double latitude, Date date) {
         DbHelper dbHelper= new DbHelper(this);
         SQLiteDatabase db= dbHelper.getReadableDatabase();
-        db.execSQL(TblGpsData.STMT_INSERT, new String []{""+longitude, ""+latitude});
+        Cursor cursor=db.rawQuery("select MAX(gpsDataId) FROM GpsData",null);
+        cursor.moveToNext();
+        int id= cursor.getInt(0)+1;
+        db.execSQL(TblGpsData.STMT_INSERT, new String[]{id+"",longitude+"", latitude+"", date.toString()});
+        cursor.close();
+        db.close();
+        dbHelper.close();
+
+
+
     }
 
     @Override
