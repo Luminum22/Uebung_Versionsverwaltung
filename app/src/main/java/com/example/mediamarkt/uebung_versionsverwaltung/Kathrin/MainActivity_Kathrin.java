@@ -30,10 +30,7 @@ ArrayList <GpsData> arrayList=new ArrayList<>();
         Cursor rows=db.rawQuery("SELECT longitude, latitude, date FROM gpsdata",null);
         while(rows.moveToNext())
         {
-            GpsData gpsData = null;
-            gpsData.longitude =rows.getDouble(0);
-            gpsData.latitude =rows.getDouble(1);
-            gpsData.date =rows.getString(2);
+            GpsData gpsData = new GpsData(rows.getDouble(0), rows.getDouble(1), rows.getString(2));
             arrayList.add(gpsData);
         }
     }
