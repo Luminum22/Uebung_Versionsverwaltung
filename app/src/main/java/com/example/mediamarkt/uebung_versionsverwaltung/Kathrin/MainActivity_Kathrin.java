@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.mediamarkt.uebung_versionsverwaltung.Anna.DbHelper;
+import com.example.mediamarkt.uebung_versionsverwaltung.Anna.GpsData;
 import com.example.mediamarkt.uebung_versionsverwaltung.R;
 
 import java.util.ArrayList;
